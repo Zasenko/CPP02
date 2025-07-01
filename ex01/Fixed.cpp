@@ -18,6 +18,14 @@ Fixed::Fixed() : fixed_point_number_value(0) {
     std::cout << "Default constructor called" << std::endl;
 }
 
+Fixed::Fixed(const int i) : fixed_point_number_value(i)  {
+    std::cout << "Int constructor called" << std::endl;
+}
+
+Fixed::Fixed(const float f) {
+    std::cout << "Float constructor called" << std::endl;
+}
+
 Fixed::Fixed(const Fixed &copy) {
     std::cout << "Copy constructor called" << std::endl;
     *this = copy;
@@ -35,6 +43,8 @@ Fixed& Fixed::operator=(const Fixed &origin) {
     return *this;
 }
 
+Fixed& Fixed::operator<<(std::ostream &test) {}
+
 int Fixed::getRawBits(void) const {   
     std::cout << "getRawBits member function called" << std::endl;
     return this->fixed_point_number_value;
@@ -43,3 +53,7 @@ int Fixed::getRawBits(void) const {
 void Fixed::setRawBits(int const raw) {
     this->fixed_point_number_value = raw;
 }
+
+float Fixed::toFloat(void) const {}
+
+int Fixed::toInt(void) const {}

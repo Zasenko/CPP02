@@ -21,11 +21,16 @@ class Fixed {
         static const int number_of_fractional_bits;
     public:
         Fixed();
-        ~Fixed();
+        Fixed(const int i);
+        Fixed(const float f);
         Fixed(const Fixed &copy);
+        ~Fixed();
         Fixed &operator=(const Fixed &origin);
+        Fixed &operator<<(std::ostream &test);
         int getRawBits(void) const;
         void setRawBits(int const raw);
+        float toFloat(void) const;
+        int toInt(void) const
 };
 
 #endif
