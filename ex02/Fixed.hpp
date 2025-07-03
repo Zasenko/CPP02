@@ -48,6 +48,12 @@ class Fixed {
         Fixed& operator++(void);
         Fixed& operator--(void);
 
+        // const Fixed& max(const Fixed &a, const Fixed &b);
+        // const Fixed& Fixed::min(const Fixed &a, const Fixed &b);
+
+        static Fixed max(Fixed &a, Fixed &b);
+        static Fixed min(Fixed &a, Fixed &b);
+
         int getRawBits(void) const;
         void setRawBits(int const raw);
         float toFloat(void) const;

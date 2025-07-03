@@ -127,3 +127,11 @@ Fixed& Fixed::operator--(void) {
     this->fixed_point_number_value--;
     return *this;
 }
+
+Fixed Fixed::max(Fixed &a, Fixed &b) {
+    return (a > b) ? a : b;
+}
+
+Fixed Fixed::min(Fixed &a, Fixed &b) {
+    return (a < b) ? a : b;
+}
