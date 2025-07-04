@@ -16,12 +16,12 @@ const int Fixed::number_of_fractional_bits = 8;
 
 Fixed::Fixed() : fixed_point_number_value(0) {}
 
-Fixed::Fixed(const int i) : fixed_point_number_value(i)  {
+Fixed::Fixed(const int i) {
     this->fixed_point_number_value = i << number_of_fractional_bits;
 }
 
 Fixed::Fixed(const float f) {
-    fixed_point_number_value = roundf(f * (1 << number_of_fractional_bits));
+    this->fixed_point_number_value = roundf(f * (1 << number_of_fractional_bits));
 }
 
 Fixed::Fixed(const Fixed &copy) {
@@ -45,7 +45,7 @@ int Fixed::getRawBits(void) const {
     return this->fixed_point_number_value;
 }
 
-void Fixed::setRawBits(int const raw) {
+void Fixed::setRawBits(const int raw) {
     this->fixed_point_number_value = raw;
 }
 
@@ -57,43 +57,43 @@ int Fixed::toInt(void) const {
     return this->fixed_point_number_value >> number_of_fractional_bits;
 }
 
-bool Fixed::operator>(const Fixed &origin) {
+bool Fixed::operator>(const Fixed &origin) const {
     return this->toFloat() > origin.toFloat();
 }
 
-bool Fixed::operator<(const Fixed &origin) {
+bool Fixed::operator<(const Fixed &origin) const {
     return this->toFloat() < origin.toFloat();
 }
 
-bool Fixed::operator>=(const Fixed &origin) {
+bool Fixed::operator>=(const Fixed &origin) const {
     return this->toFloat() >= origin.toFloat();
 }
 
-bool Fixed::operator<=(const Fixed &origin) {
+bool Fixed::operator<=(const Fixed &origin) const {
     return this->toFloat() <= origin.toFloat();
 }
 
-bool Fixed::operator==(const Fixed &origin) {
+bool Fixed::operator==(const Fixed &origin) const {
     return this->toFloat() == origin.toFloat();
 }
 
-bool Fixed::operator!=(const Fixed &origin) {
+bool Fixed::operator!=(const Fixed &origin) const {
     return this->toFloat() != origin.toFloat();
 }
 
-Fixed Fixed::operator+(const Fixed &origin) {
+Fixed Fixed::operator+(const Fixed &origin) const {
     return Fixed(this->toFloat() + origin.toFloat());
 }
 
-Fixed Fixed::operator-(const Fixed &origin) {
+Fixed Fixed::operator-(const Fixed &origin) const {
     return Fixed(this->toFloat() - origin.toFloat());
 }
 
-Fixed Fixed::operator*(const Fixed &origin) {
+Fixed Fixed::operator*(const Fixed &origin) const {
     return Fixed(this->toFloat() * origin.toFloat());
 }
 
-Fixed Fixed::operator/(const Fixed &origin) {
+Fixed Fixed::operator/(const Fixed &origin) const {
     if (origin.getRawBits() == 0) {
         std::cout << "Can not devide by 0." << std::endl;
         exit(1);
@@ -128,10 +128,18 @@ Fixed& Fixed::operator--(void) {
     return *this;
 }
 
-Fixed Fixed::max(Fixed &a, Fixed &b) {
+Fixed& Fixed::max(Fixed &a, Fixed &b) {
     return (a > b) ? a : b;
 }
 
-Fixed Fixed::min(Fixed &a, Fixed &b) {
+Fixed& Fixed::min(Fixed &a, Fixed &b) {
+    return (a < b) ? a : b;
+}
+
+const Fixed &max(const Fixed &a, const Fixed &b) {
+    return (a > b) ? a : b;
+}
+
+const Fixed &min(const Fixed &a, const Fixed &b) {
     return (a < b) ? a : b;
 }
