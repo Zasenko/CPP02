@@ -13,12 +13,14 @@
 #include "Fixed.hpp"
 #include "Point.hpp"
 
-void test(const Point &a, const Point &b, const Point &c) {
+bool test(const Point &point, const Point &a, const Point &b, const Point &c)
+{
     if (a == b || a == c || b == c) {
         std::cout << "This is not a triangle." << std::endl;
         exit(0);
     }
-    
+
+    return false;
 }
 
 int main(void)
@@ -32,7 +34,13 @@ int main(void)
     b.test();
     c.test();
 
-    test(a, b, c);
+    Point point(Fixed(4), Fixed(8));
+
+    if (test(point, a, b, c)) {
+        std::cout << "Point is in triangle." << std::endl;
+    } else {
+        std::cout << "Point is not in triangle." << std::endl;
+    }
 
     return 0;
 }
