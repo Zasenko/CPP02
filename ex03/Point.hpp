@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzasenko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/04 14:48:14 by dzasenko          #+#    #+#             */
+/*   Updated: 2025/07/04 14:48:16 by dzasenko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef POINT_HPP
 #define POINT_HPP
 
@@ -11,7 +23,6 @@ class Point {
         ~Point();
         Point &operator=(const Point &point);
         bool operator==(const Point &point) const;
-        void test(void);
         float get_x(void) const;
         float get_y(void) const;
     private:

@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzasenko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/04 14:48:21 by dzasenko          #+#    #+#             */
+/*   Updated: 2025/07/04 14:48:23 by dzasenko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Point.hpp"
-
-
 
 Point::Point() {}
 
@@ -26,15 +36,9 @@ bool Point::operator==(const Point &point) const {
         return false;
 }
 
-// TODO DELETE:
-void Point::test(void) {
-    std::cout << _x << " | " << _y << std::endl;
-}
-
 float Point::get_x(void) const {
     return _x.toFloat();
 }
-
 
 float Point::get_y(void) const {
     return _y.toFloat();
@@ -47,7 +51,7 @@ float sign (Point p1, Point p2, Point p3)
 
 bool bsp(Point const a, Point const b, Point const c, Point const point) {
 
-    if (a == b || a == c || b == c) {
+    if (a == b || b == c || c == a) {
         std::cout << "This is not a triangle." << std::endl;
         exit(0);
     }

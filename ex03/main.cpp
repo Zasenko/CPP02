@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
 #include "Point.hpp"
 
 int main(void)
@@ -19,11 +18,6 @@ int main(void)
     Point a(0, 0);
     Point b(1, 8);
     Point c(20.5, 0);
-
-    a.test();
-    b.test();
-    c.test();
-
     Point point(1, 4);
 
     if (bsp(a, b, c, point)) {
