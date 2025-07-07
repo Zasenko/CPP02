@@ -18,14 +18,25 @@ Fixed::Fixed() : fixed_point_number_value(0) {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const int i) : fixed_point_number_value(i)  {
+Fixed::Fixed(const int i) : fixed_point_number_value(0) {
     std::cout << "Int constructor called" << std::endl;
-    this->fixed_point_number_value = i << number_of_fractional_bits;
+
+    if (i > (INT_MAX >> number_of_fractional_bits) || i < (INT_MIN >> number_of_fractional_bits)) {
+        std::cerr << "Error: Fixed constructor: integer value out of range and set to 0" << std::endl;
+    } else {
+        this->fixed_point_number_value = i << number_of_fractional_bits;
+    }
 }
 
-Fixed::Fixed(const float f) {
+Fixed::Fixed(const float f) : fixed_point_number_value(0) {
     std::cout << "Float constructor called" << std::endl;
-    fixed_point_number_value = roundf(f * (1 << number_of_fractional_bits));
+
+    float scaled = f * (1 << number_of_fractional_bits); 
+    if (scaled > INT_MAX || scaled < INT_MIN) {
+        std::cerr << "Error: Fixed constructor: float value out of range and set to 0" << std::endl;
+    } else {
+        this->fixed_point_number_value = roundf(scaled);
+    }
 }
 
 Fixed::Fixed(const Fixed &copy) {

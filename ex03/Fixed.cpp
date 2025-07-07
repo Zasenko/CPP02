@@ -16,12 +16,25 @@ const int Fixed::number_of_fractional_bits = 8;
 
 Fixed::Fixed() : fixed_point_number_value(0) {}
 
-Fixed::Fixed(const int i) {
-    this->fixed_point_number_value = i << number_of_fractional_bits;
+Fixed::Fixed(const int i) : fixed_point_number_value(0) {
+    std::cout << "Int constructor called" << std::endl;
+
+    if (i > (INT_MAX >> number_of_fractional_bits) || i < (INT_MIN >> number_of_fractional_bits)) {
+        std::cerr << "Error: Fixed constructor: integer value out of range and set to 0" << std::endl;
+    } else {
+        this->fixed_point_number_value = i << number_of_fractional_bits;
+    }
 }
 
-Fixed::Fixed(const float f) {
-    this->fixed_point_number_value = roundf(f * (1 << number_of_fractional_bits));
+Fixed::Fixed(const float f) : fixed_point_number_value(0) {
+    std::cout << "Float constructor called" << std::endl;
+
+    float scaled = f * (1 << number_of_fractional_bits);
+    if (scaled > INT_MAX || scaled < INT_MIN) {
+        std::cerr << "Error: Fixed constructor: float value out of range and set to 0" << std::endl;
+    } else {
+        this->fixed_point_number_value = roundf(scaled);
+    }
 }
 
 Fixed::Fixed(const Fixed &copy) {
@@ -95,7 +108,7 @@ Fixed Fixed::operator*(const Fixed &origin) const {
 
 Fixed Fixed::operator/(const Fixed &origin) const {
     if (origin.getRawBits() == 0) {
-        std::cout << "Can not devide by 0." << std::endl;
+        std::cout << "Fixed: Error: Can not devide by 0" << std::endl;
         exit(1);
     } else {
         return Fixed(this->toFloat() / origin.toFloat());

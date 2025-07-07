@@ -55,7 +55,7 @@ class Fixed {
         static const Fixed &min(const Fixed &a, const Fixed &b);
 
         int getRawBits(void) const;
-        void setRawBits(const int raw);
+        void setRawBits(int const raw);
         float toFloat(void) const;
         int toInt(void) const;
 };
