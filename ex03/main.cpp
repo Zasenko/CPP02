@@ -14,25 +14,20 @@
 
 int main(void)
 {
-
     Point a(0, 0);
-    Point b(1, 8);
-    Point c(20.5, 0);
-    Point point(1, 4);
+    Point b(5, 0);
+    Point c(0, 5);
 
-    if (bsp(a, b, c, point)) {
-        std::cout << "Point is in triangle." << std::endl;
-    } else {
-        std::cout << "Point is not in triangle." << std::endl;
-    }
+    Point inside(1, 1);
+    Point outside(5, 5);
+    Point on_edge(2.5f, 0);
 
-    point = Point(0, 4);
+    std::cout << "Point inside triangle: " << (bsp(a, b, c, inside) ? "yes" : "no") << std::endl;
+    std::cout << "Point inside triangle: " << (bsp(a, b, c, outside) ? "yes" : "no") << std::endl;
+    std::cout << "Point inside triangle: " << (bsp(a, b, c, on_edge) ? "yes" : "no") << std::endl;
 
-    if (bsp(a, b, c, point)) {
-        std::cout << "Point is in triangle." << std::endl;
-    } else {
-        std::cout << "Point is not in triangle." << std::endl;
-    }
+    Point d(0,0);
+    bsp(a, b, d, inside);
 
     return 0;
 }

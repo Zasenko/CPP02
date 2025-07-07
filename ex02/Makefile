@@ -1,4 +1,4 @@
-NAME = myFirstClass
+NAME = ex02
 C++ = c++
 C++FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp Fixed.cpp

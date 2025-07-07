@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+#include <climits>
 
 const int Fixed::number_of_fractional_bits = 8;
 
 Fixed::Fixed() : fixed_point_number_value(0) {}
 
 Fixed::Fixed(const int i) : fixed_point_number_value(0) {
-    std::cout << "Int constructor called" << std::endl;
-
     if (i > (INT_MAX >> number_of_fractional_bits) || i < (INT_MIN >> number_of_fractional_bits)) {
         std::cerr << "Error: Fixed constructor: integer value out of range and set to 0" << std::endl;
     } else {
@@ -27,13 +26,11 @@ Fixed::Fixed(const int i) : fixed_point_number_value(0) {
 }
 
 Fixed::Fixed(const float f) : fixed_point_number_value(0) {
-    std::cout << "Float constructor called" << std::endl;
-
-    float scaled = f * (1 << number_of_fractional_bits);
-    if (scaled > INT_MAX || scaled < INT_MIN) {
+    float scaled = f * (1 << number_of_fractional_bits); 
+    if (scaled > static_cast<float>(INT_MAX) || scaled < static_cast<float>(INT_MIN)) {
         std::cerr << "Error: Fixed constructor: float value out of range and set to 0" << std::endl;
     } else {
-        this->fixed_point_number_value = roundf(scaled);
+        this->fixed_point_number_value = static_cast<int>(roundf(scaled));
     }
 }
 
@@ -63,7 +60,7 @@ void Fixed::setRawBits(const int raw) {
 }
 
 float Fixed::toFloat(void) const {
-    return fixed_point_number_value / (float)(1 << number_of_fractional_bits);
+    return fixed_point_number_value / static_cast<float>(1 << number_of_fractional_bits);
 }
 
 int Fixed::toInt(void) const {
@@ -115,27 +112,23 @@ Fixed Fixed::operator/(const Fixed &origin) const {
     }
 }
 
-// (X)++
 Fixed Fixed::operator++(int) {
     Fixed temp(*this);
     ++(*this);
     return temp;
 }
 
-// (X)--
 Fixed Fixed::operator--(int) {
     Fixed temp(*this);
     --(*this);
     return temp;
 }
 
-// ++(X)
 Fixed& Fixed::operator++(void) {
     this->fixed_point_number_value++;
     return *this;
 }
 
-// --(X)
 Fixed& Fixed::operator--(void) {
     this->fixed_point_number_value--;
     return *this;
@@ -149,10 +142,10 @@ Fixed& Fixed::min(Fixed &a, Fixed &b) {
     return (a < b) ? a : b;
 }
 
-const Fixed &max(const Fixed &a, const Fixed &b) {
+const Fixed& Fixed::max(const Fixed &a, const Fixed &b) {
     return (a > b) ? a : b;
 }
 
-const Fixed &min(const Fixed &a, const Fixed &b) {
+const Fixed& Fixed::min(const Fixed &a, const Fixed &b) {
     return (a < b) ? a : b;
 }

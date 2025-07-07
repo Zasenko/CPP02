@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+#include <climits>
 
 const int Fixed::number_of_fractional_bits = 8;
 
@@ -32,10 +33,10 @@ Fixed::Fixed(const float f) : fixed_point_number_value(0) {
     std::cout << "Float constructor called" << std::endl;
 
     float scaled = f * (1 << number_of_fractional_bits); 
-    if (scaled > INT_MAX || scaled < INT_MIN) {
+    if (scaled > static_cast<float>(INT_MAX) || scaled < static_cast<float>(INT_MIN)) {
         std::cerr << "Error: Fixed constructor: float value out of range and set to 0" << std::endl;
     } else {
-        this->fixed_point_number_value = roundf(scaled);
+        this->fixed_point_number_value = static_cast<int>(roundf(scaled));
     }
 }
 
@@ -69,7 +70,7 @@ void Fixed::setRawBits(int const raw) {
 }
 
 float Fixed::toFloat(void) const {
-    return fixed_point_number_value / (float)(1 << number_of_fractional_bits);
+    return fixed_point_number_value / static_cast<float>(1 << number_of_fractional_bits);
 }
 
 int Fixed::toInt(void) const {

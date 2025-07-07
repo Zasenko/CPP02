@@ -16,24 +16,22 @@ Point::Point() {}
 
 Point::Point(const float &x, const float &y) : _x(Fixed(x)), _y(Fixed(y)) {}
 
-Point::Point(const Point &copy){
-    *this = copy;
+Point::Point(const Point &copy) : _x(copy._x) , _y(copy._y) {
 }
+
 Point::~Point() {}
 
 Point& Point::operator=(const Point &point) {
-    if (this != &point) {
-        _x = point._x;
-        _y = point._y;
-    }
+    (void)point;
     return *this;
 }
 
 bool Point::operator==(const Point &point) const {
-    if (_x == point._x && _y == point._y)
+    if (_x == point._x && _y == point._y) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 float Point::get_x(void) const {
@@ -44,7 +42,7 @@ float Point::get_y(void) const {
     return _y.toFloat();
 }
 
-float sign (Point p1, Point p2, Point p3)
+float sign (const Point &p1, const Point &p2, const Point &p3)
 {
     return (p1.get_x() - p3.get_x()) * (p2.get_y() - p3.get_y()) - (p2.get_x() - p3.get_x()) * (p1.get_y() - p3.get_y());
 }
@@ -60,8 +58,8 @@ bool bsp(Point const a, Point const b, Point const c, Point const point) {
     float d2 = sign(point, b, c);
     float d3 = sign(point, c, a);
 
-    if (d1 > 0 || d2 > 0 || d3 > 0)
-        return true;
-    else
-        return false;
+    bool has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+    bool has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+    return !(has_neg && has_pos);
 }
